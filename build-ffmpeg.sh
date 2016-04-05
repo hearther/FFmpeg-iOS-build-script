@@ -9,9 +9,9 @@ SCRATCH="scratch"
 THIN=`pwd`/"thin"
 
 # absolute path to x264 library
-#X264=`pwd`/fat-x264
+X264=`pwd`/fat-x264
 
-#FDK_AAC=`pwd`/fdk-aac/fdk-aac-ios
+FDK_AAC=`pwd`/fdk-aac/fdk-aac-ios
 
 CONFIGURE_FLAGS="--enable-cross-compile --disable-debug --disable-programs \
                  --disable-doc --enable-pic"
