@@ -9,9 +9,9 @@ SCRATCH="scratch"
 THIN=`pwd`/"thin"
 
 # absolute path to x264 library
-X264=`pwd`/fat-x264
+X264=`pwd`/x264-iOS
 
-FDK_AAC=`pwd`/fdk-aac/fdk-aac-ios
+FDK_AAC=`pwd`/fdk-aac/fdk-aac-iOS
 
 CONFIGURE_FLAGS="--enable-cross-compile --disable-debug --disable-programs \
                  --disable-doc --enable-pic"
@@ -23,7 +23,7 @@ fi
 
 if [ "$FDK_AAC" ]
 then
-	CONFIGURE_FLAGS="$CONFIGURE_FLAGS --enable-libfdk-aac"
+	CONFIGURE_FLAGS="$CONFIGURE_FLAGS --enable-libfdk-aac --enable-nonfree"
 fi
 
 # avresample
