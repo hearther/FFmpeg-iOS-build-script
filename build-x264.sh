@@ -36,6 +36,12 @@ fi
 
 if [ "$COMPILE" ]
 then
+	if [ ! -r $SOURCE ]
+	then
+		echo 'x264 source not found. Trying to clone...'
+		git clone git://git.videolan.org/x264.git \
+			|| exit 1
+	fi
 	CWD=`pwd`
 	for ARCH in $ARCHS
 	do

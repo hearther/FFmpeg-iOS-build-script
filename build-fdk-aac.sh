@@ -33,6 +33,12 @@ fi
 
 if [ "$COMPILE" ]
 then
+	if [ ! -r $SOURCE ]
+	then
+		echo 'fdk-aac source not found. Trying to clone...'
+		git clone https://github.com/mstorsjo/fdk-aac.git \
+			|| exit 1
+	fi
 	CWD=`pwd`
 	for ARCH in $ARCHS
 	do
