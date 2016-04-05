@@ -1,0 +1,2 @@
+https://github.com/mstorsjo/fdk-aac.git
+git://git.videolan.org/x264.git
