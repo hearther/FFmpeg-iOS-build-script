@@ -41,6 +41,8 @@ then
 		echo 'x264 source not found. Trying to clone...'
 		git clone git://git.videolan.org/x264.git \
 			|| exit 1
+		cd x264
+		git checkout 3b70645597bea052d2398005bc723212aeea6875
 	fi
 	CWD=`pwd`
 	for ARCH in $ARCHS
