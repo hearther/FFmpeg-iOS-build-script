@@ -12,7 +12,7 @@ THIN=`pwd`/"thin"
 # absolute path to x264 library
 X264=`pwd`/x264-iOS
 
-FDK_AAC=`pwd`/fdk-aac/fdk-aac-iOS
+FDK_AAC=`pwd`/libfdk_aac
 
 CONFIGURE_FLAGS="--enable-cross-compile --disable-debug --disable-programs \
                  --disable-doc --enable-pic"
@@ -97,7 +97,7 @@ then
 		    CFLAGS="$CFLAGS -mios-simulator-version-min=$DEPLOYMENT_TARGET"
 		else
 		    PLATFORM="iPhoneOS"
-		    CFLAGS="$CFLAGS -mios-version-min=$DEPLOYMENT_TARGET -fembed-bitcode"
+		    CFLAGS="$CFLAGS -mios-version-min=$DEPLOYMENT_TARGET"
 		    if [ "$ARCH" = "arm64" ]
 		    then
 		        EXPORT="GASPP_FIX_XCODE5=1"
@@ -119,6 +119,7 @@ then
 			LDFLAGS="$LDFLAGS -L$FDK_AAC/lib"
 		fi
 
+		
 		TMPDIR=${TMPDIR/%\/} $CWD/$SOURCE/configure \
 		    --target-os=darwin \
 		    --arch=$ARCH \
@@ -128,6 +129,7 @@ then
 		    --extra-ldflags="$LDFLAGS" \
 		    --prefix="$THIN/$ARCH" \
 		|| exit 1
+
 
 		make -j3 install $EXPORT || exit 1
 		cd $CWD
