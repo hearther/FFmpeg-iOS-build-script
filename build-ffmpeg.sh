@@ -2,7 +2,7 @@
 
 # directories
 #SOURCE="ffmpeg-3.0"
-SOURCE="ffmpeg-2.8.3"
+SOURCE="ffmpeg-3.1"
 FAT="FFmpeg-iOS"
 
 SCRATCH="scratch"
@@ -19,7 +19,7 @@ CONFIGURE_FLAGS="--enable-cross-compile --disable-debug --disable-programs \
 
 if [ "$X264" ]
 then
-	CONFIGURE_FLAGS="$CONFIGURE_FLAGS --enable-gpl --enable-libx264"
+	CONFIGURE_FLAGS="$CONFIGURE_FLAGS --enable-gpl --enable-libx264 --enable-encoder=libx264"
 fi
 
 if [ "$FDK_AAC" ]
