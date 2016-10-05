@@ -2,7 +2,7 @@
 
 CONFIGURE_FLAGS="--enable-static --with-pic=yes --disable-shared"
 
-ARCHS="armv7s x86_64 i386 armv7"
+ARCHS="arm64 armv7s x86_64 i386 armv7"
 
 # directories
 SOURCE="fdk-aac"
@@ -62,6 +62,7 @@ then
 		    fi
 		else
 		    PLATFORM="iPhoneOS"
+		    CFLAGS="$CFLAGS -mios-simulator-version-min=7.0"
 		    if [ $ARCH = arm64 ]
 		    then
 		        #CFLAGS="$CFLAGS -D__arm__ -D__ARM_ARCH_7EM__" # hack!
@@ -99,12 +100,14 @@ fi
 if [ "$LIPO" ]
 then
 	echo "building fat binaries..."
+	echo $THIN
 	mkdir -p $FAT/lib
 	set - $ARCHS
 	CWD=`pwd`
 	cd $THIN/$1/lib
 	for LIB in *.a
 	do
+		pwd
 		cd $CWD
 		lipo -create `find $THIN -name $LIB` -output $FAT/lib/$LIB
 	done
