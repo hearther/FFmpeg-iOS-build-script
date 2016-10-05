@@ -15,6 +15,8 @@ THIN=`pwd`/"thin"
 COMPILE="y"
 LIPO="y"
 
+DEPLOYMENT_TARGET="6.0"
+
 if [ "$*" ]
 then
 	if [ "$*" = "lipo" ]
@@ -52,17 +54,16 @@ then
 		then
 		    PLATFORM="iPhoneSimulator"
 		    CPU=
+		    CFLAGS="$CFLAGS -mios-simulator-version-min=$DEPLOYMENT_TARGET"
 		    if [ "$ARCH" = "x86_64" ]
 		    then
-		    	CFLAGS="$CFLAGS -mios-simulator-version-min=7.0"
 		    	HOST=
-		    else
-		    	CFLAGS="$CFLAGS -mios-simulator-version-min=7.0"
-			HOST="--host=i386-apple-darwin"
+		    else		    	
+				HOST="--host=i386-apple-darwin"
 		    fi
 		else
 		    PLATFORM="iPhoneOS"
-		    CFLAGS="$CFLAGS -mios-simulator-version-min=7.0"
+		    CFLAGS="$CFLAGS -mios-version-min=$DEPLOYMENT_TARGET"
 		    if [ $ARCH = arm64 ]
 		    then
 		        #CFLAGS="$CFLAGS -D__arm__ -D__ARM_ARCH_7EM__" # hack!
@@ -72,9 +73,11 @@ then
 	            fi
 		    SIMULATOR=
 		fi
-
+		echo  "herrrrrrr $CFLAGS"
+		
 		XCRUN_SDK=`echo $PLATFORM | tr '[:upper:]' '[:lower:]'`
-		CC="xcrun -sdk $XCRUN_SDK clang -Wno-error=unused-command-line-argument-hard-error-in-future"
+		CC="xcrun -sdk $XCRUN_SDK clang -Wno-error=unused-command-line-argument"
+		echo  "herrrrrrr $CC"
 		AS="$CWD/$SOURCE/extras/gas-preprocessor.pl $CC"
 		CXXFLAGS="$CFLAGS"
 		LDFLAGS="$CFLAGS"
@@ -90,6 +93,7 @@ then
 		    CFLAGS="$CFLAGS" \
 		    LDFLAGS="$LDFLAGS" \
 		    CPPFLAGS="$CFLAGS" \
+		    CXXFLAGS="$CFLAGS" \
 		    --prefix="$THIN/$ARCH"
 
 		make -j3 install
